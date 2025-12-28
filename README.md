@@ -1,5 +1,7 @@
 #RSJFW-flatpak-build
 
+#I AM NOT THE ORIGINAL OWNER, visit https://github.com/9nunya/RSJFW for more.
+
 Makes RSJFW compatible with other distros. Tested for ubuntu.
 
 Clone the directory to home.
