@@ -1,0 +1,77 @@
+{
+  "id" : "com.github.nunya.RSJFW",
+  "runtime" : "org.freedesktop.Platform",
+  "runtime-version" : "24.08",
+  "runtime-commit" : "5365bb0e377aa4dc0ebb3ddbc5af846eb1cfa9222146754997d615b6c8c63f0b",
+  "sdk" : "org.freedesktop.Sdk",
+  "sdk-commit" : "9ca9e4d490ad7057eb2d37461c8e7d977a720b85946f603c5a4ddc0aa9207230",
+  "base" : "org.winehq.Wine",
+  "base-version" : "stable-24.08",
+  "base-commit" : "e6e0fec1ff2f522529c59f30a25d91edf186c7e0360df7c9d05412acd83fccca",
+  "command" : "rsjfw",
+  "modules" : [
+    {
+      "name" : "libzip",
+      "buildsystem" : "cmake",
+      "sources" : [
+        {
+          "url" : "https://libzip.org/download/libzip-1.11.2.tar.xz",
+          "sha256" : "5d471308cef4c4752bbcf973d9cd37ba4cb53739116c30349d4764ba1410dfc1",
+          "type" : "archive"
+        }
+      ]
+    },
+    {
+      "name" : "glfw",
+      "buildsystem" : "cmake",
+      "sources" : [
+        {
+          "url" : "https://github.com/glfw/glfw/releases/download/3.4/glfw-3.4.zip",
+          "sha256" : "b5ec004b2712fd08e8861dc271428f048775200a2df719ccf575143ba749a3e9",
+          "type" : "archive"
+        }
+      ],
+      "build-options" : {
+        "config-opts" : [
+          "-DGLFW_BUILD_EXAMPLES=OFF",
+          "-DGLFW_BUILD_TESTS=OFF",
+          "-DGLFW_BUILD_DOCS=OFF"
+        ]
+      }
+    },
+    {
+      "name" : "rsjfw",
+      "buildsystem" : "cmake",
+      "sources" : [
+        {
+          "url" : "https://github.com/9nunya/RSJFW.git",
+          "commit" : "dacca320db71b7385c429f157035d1bda2ef617a",
+          "type" : "git"
+        }
+      ],
+      "build-options" : {
+        "config-opts" : [
+          "-DCMAKE_BUILD_TYPE=Release",
+          "-DCMAKE_INSTALL_PREFIX=/app"
+        ]
+      },
+      "post-install" : [
+        "install -Dm644 rsjfw.desktop /app/share/applications/com.github.nunya.RSJFW.desktop",
+        "install -Dm644 assets/logo.png /app/share/icons/hicolor/256x256/apps/com.github.nunya.RSJFW.png",
+        "sed -i 's/Icon=rsjfw/Icon=com.github.nunya.RSJFW/' /app/share/applications/com.github.nunya.RSJFW.desktop",
+        "sed -i 's/Exec=rsjfw/Exec=com.github.nunya.RSJFW/' /app/share/applications/com.github.nunya.RSJFW.desktop"
+      ]
+    }
+  ],
+  "finish-args" : [
+    "--device=dri",
+    "--socket=x11",
+    "--socket=wayland",
+    "--socket=pulseaudio",
+    "--share=network",
+    "--share=ipc",
+    "--filesystem=home",
+    "--talk-name=org.freedesktop.Notifications"
+  ],
+  "source-date-epoch" : 1766884868
+}

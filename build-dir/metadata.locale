@@ -1,0 +1,5 @@
+[Runtime]
+name=com.github.nunya.RSJFW.Locale
+
+[ExtensionOf]
+ref=app/com.github.nunya.RSJFW/x86_64/master

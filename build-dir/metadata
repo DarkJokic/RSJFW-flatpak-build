@@ -1,0 +1,28 @@
+[Application]
+name=com.github.nunya.RSJFW
+runtime=org.freedesktop.Platform/x86_64/24.08
+sdk=org.freedesktop.Sdk/x86_64/24.08
+base=app/org.winehq.Wine/x86_64/stable-24.08
+command=rsjfw
+
+[Context]
+shared=network;ipc;
+sockets=x11;wayland;pulseaudio;
+devices=dri;
+filesystems=home;
+
+[Session Bus Policy]
+org.freedesktop.Notifications=talk
+
+[Extension com.github.nunya.RSJFW.Locale]
+directory=share/runtime/locale
+autodelete=true
+locale-subset=true
+
+[Extension com.github.nunya.RSJFW.Debug]
+directory=lib/debug
+autodelete=true
+no-autodownload=true
+
+[Build]
+built-extensions=com.github.nunya.RSJFW.Locale;com.github.nunya.RSJFW.Debug;

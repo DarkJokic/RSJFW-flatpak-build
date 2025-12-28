@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=RSJFW Roblox Studio
+Exec=rsjfw launch %u
+Type=Application
+Terminal=false
+MimeType=x-scheme-handler/roblox-studio;x-scheme-handler/roblox-studio-auth;
+Categories=Game;
+Comment=Launch Roblox Studio via RSJFW
+Icon=rsjfw
+Actions=config;
+Keywords=roblox;studio;gaming;wine;
+
+[Desktop Action config]
+Name=Configure
+Exec=rsjfw config

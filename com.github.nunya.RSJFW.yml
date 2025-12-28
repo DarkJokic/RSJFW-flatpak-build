@@ -1,0 +1,52 @@
+id: com.github.nunya.RSJFW
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+base: org.winehq.Wine
+base-version: 'stable-24.08'
+command: rsjfw
+
+finish-args:
+  - --device=dri
+  - --socket=x11
+  - --socket=wayland
+  - --socket=pulseaudio
+  - --share=network
+  - --share=ipc
+  - --filesystem=home
+  - --talk-name=org.freedesktop.Notifications
+
+modules:
+  - name: libzip
+    buildsystem: cmake
+    sources:
+      - type: archive
+        url: https://libzip.org/download/libzip-1.11.2.tar.xz
+        sha256: 5d471308cef4c4752bbcf973d9cd37ba4cb53739116c30349d4764ba1410dfc1
+
+  - name: glfw
+    buildsystem: cmake
+    build-options:
+      config-opts:
+        - -DGLFW_BUILD_EXAMPLES=OFF
+        - -DGLFW_BUILD_TESTS=OFF
+        - -DGLFW_BUILD_DOCS=OFF
+    sources:
+      - type: archive
+        url: https://github.com/glfw/glfw/releases/download/3.4/glfw-3.4.zip
+        sha256: b5ec004b2712fd08e8861dc271428f048775200a2df719ccf575143ba749a3e9
+
+  - name: rsjfw
+    buildsystem: cmake
+    build-options:
+      config-opts:
+        - -DCMAKE_BUILD_TYPE=Release
+        - -DCMAKE_INSTALL_PREFIX=/app
+    sources:
+      - type: git
+        url: https://github.com/9nunya/RSJFW.git
+    post-install:
+      - install -Dm644 rsjfw.desktop /app/share/applications/com.github.nunya.RSJFW.desktop
+      - install -Dm644 assets/logo.png /app/share/icons/hicolor/256x256/apps/com.github.nunya.RSJFW.png
+      - sed -i 's/Icon=rsjfw/Icon=com.github.nunya.RSJFW/' /app/share/applications/com.github.nunya.RSJFW.desktop
+      - sed -i 's/Exec=rsjfw/Exec=com.github.nunya.RSJFW/' /app/share/applications/com.github.nunya.RSJFW.desktop
